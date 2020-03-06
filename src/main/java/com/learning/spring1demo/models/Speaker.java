@@ -2,9 +2,13 @@ package com.learning.spring1demo.models;
 
 import javax.persistence.*;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
 @Entity(name="speakers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Speaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +19,7 @@ public class Speaker {
     private String company;
     private String speaker_bio;
     @ManyToMany(mappedBy = "speakers")
+    @JsonIgnore
     private List<Session> sessions;
     @Lob
     @Type(type="org.hibernate.type.BinaryType")

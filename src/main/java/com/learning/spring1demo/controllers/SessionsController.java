@@ -2,6 +2,7 @@ package com.learning.spring1demo.controllers;
 
 import com.learning.spring1demo.models.Session;
 import com.learning.spring1demo.repositories.SessionRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +34,14 @@ public class SessionsController {
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable Long id){
         sessionRepository.deleteById(id);
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Session update(@PathVariable Long id, @RequestBody Session session){
+        //because this is a PUT, we expect all attributes to be passed in
+        //TODO: Add validation that all attributes are passed in, otherwise return 404
+        Session existingSession = sessionRepository.getOne(id);
+        BeanUtils.copyProperties(session, existingSession, "session_id");
+        return sessionRepository.saveAndFlush(existingSession);
     }
 }
