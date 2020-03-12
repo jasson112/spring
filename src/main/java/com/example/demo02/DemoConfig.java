@@ -42,7 +42,7 @@ public class DemoConfig implements WebMvcConfigurer {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
         bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
-        bean.setOrder(1);
+        bean.setOrder(0);
         return bean;
     }
 
@@ -81,7 +81,7 @@ public class DemoConfig implements WebMvcConfigurer {
     public ViewResolver thymeleafResolver(){
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine());
-        thymeleafViewResolver.setOrder(0);
+        thymeleafViewResolver.setOrder(1);
         return  thymeleafViewResolver;
     }
 }
